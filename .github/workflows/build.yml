@@ -1,0 +1,18 @@
+name: Compilar Mod iOS
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Instalar Theos (Compilador)
+      run: |
+        bash -c "$(curl -fsSL https://githubusercontent.com)"
+    - name: Compilar Tweak
+      run: |
+        make package
+    - name: Salvar dylib Pronta
+      uses: actions/upload-artifact@v3
+      with:
+        name: PocketAntsMod_dylib
+        path: .theos/obj/PocketAntsMod.dylib
